@@ -21,6 +21,5 @@ export MSYS2_ARG_CONV_EXCL="*"
 #
 # bazel build '...'
 
-bazel build //main:hello-world
-bazel build //main:hello-world --aspects clang_tidy/clang_tidy.bzl%clang_tidy_aspect --output_groups=report
+bazel build -s //main:hello-world
 bazel test //test:hello-test
