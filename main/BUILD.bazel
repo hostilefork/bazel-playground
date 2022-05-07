@@ -1,13 +1,62 @@
+
+COPTS = [
+    "-xc++",
+
+    "--std=c++11",
+
+    # Optimize for size
+    "-Os",
+
+    # Force `char` to be interpreted as unsigned.
+    #
+    # !!! This may be a more confusing choice than just saying `unsigned char`
+    # or defining a BYTE type.
+    #
+    "-funsigned-char",
+
+    # Turn on warnings, and make them errors
+    "-Wall -Wextra -Werror",
+
+    # Try setting the sysroot (important for clang-tidy, as clang is not
+    # gcc-avr so it needs to find headers like <avr/io.h>).
+    #
+    # !!! Because this is redundant for gcc-avr and may vary based on the
+    # system this is running on, this should be configured a better way; or
+    # at least something that is limited to the clang-tidy step.
+    #
+    #"--sysroot=/usr/lib/avr/x86_64-linux-gnu/"
+    #"-I /usr/lib/avr/include/"
+]
+
 cc_library(
     name = "hello-greet",
+
     srcs = ["hello-greet.cc"],
+
     hdrs = ["hello-greet.h"],
+
     visibility = ["//visibility:public"]
 )
 
+
 cc_binary(
     name = "hello-world",
+
     srcs = ["hello-world.cc"],
+
+    # We want to prove our settings here aren't just being used to
+    # compile, but also become a clang database so that clang-tidy uses
+    # the same flags:
+    #
+    # https://eli.thegreenplace.net/2014/05/21/compilation-databases-for-clang-based-tools
+    #
+    # If this doesn't get passed through, then clang-tidy will try to 
+    # compile with something there deliberately to make it fail.
+    #
+    copts = [
+        "-DNO_CLANG_TIDY_TRIPWIRE",
+    ] + COPTS,
+
     deps = [
         ":hello-greet",
         "//lib:hello-time",
