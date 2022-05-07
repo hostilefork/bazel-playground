@@ -1,3 +1,9 @@
+> This fork of the bazel-test was hacked up mildly at one time to support use
+> with Clang-Tidy, and was aiming to be used with AVR toolchains...that project
+> was discontinued some time ago.  But in the interest of not throwing it away
+> in case it ever has any value, the tweaks are pushed to GitHub and set to
+> archival status.
+
 # C Bazel Example: Library, Executable, and Google Gtest
 
 **TL;DR:**
