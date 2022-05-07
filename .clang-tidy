@@ -23,14 +23,18 @@
 # to disable it instead of fix it.  The full list is here:
 #
 # https://clang.llvm.org/extra/clang-tidy/checks/list.html
+#
+# !!! IMPORTANT: Yes, the commas are needed at the ends of each line !!! 
+# You won't get an error if you leave them off, but the checks won't work!
+# Unfortunately you cannot #comment on the individual lines in place. :-(
 
-Checks: "\
-  bugprone-*,\
-  cppcoreguidelines-*,\
-  google-*,\
-  performance-*,\
-  clang-analyzer-*,\
-  -cppcoreguidelines-pro-bounds-pointer-arithmetic"  # C programs need pointers
+Checks: >-  # `>-` explained at https://stackoverflow.com/a/21699210
+  bugprone-*,
+  cppcoreguidelines-*,
+  google-*,
+  performance-*,
+  clang-analyzer-*,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
 
 
 # Individual checks have options, see the item in the list for what's available
