@@ -49,7 +49,8 @@ CheckOptions:
 # If you want to specifically include or exclude headers from Clang-Tidy
 # processing, you can specify it as a RegEx here.
 
-HeaderFilterRegex: ".*"
+HeaderFilterRegex: "^((?!/usr/lib/avr/|/usr/lib/somethingelse/).)*$"
+
 
 
 # Which warnings are considered errors (all of them)
